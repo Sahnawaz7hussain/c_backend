@@ -19,14 +19,14 @@ const io = socketIO(server, {
 
 //app.use(cors());
 app.get("/", (req, res) => {
-  res.send("Hello chating backend working");
+  res.send({"Message":"Hello chating backend working"});
 });
 
 io.on("connection", async (socket) => {
   //console.log("Socket connected...");
   console.log("socket/user connected");
   let payload = await messageModel.find();
-  io.emit("chat", payload);
+  io.emit("chat",payload);
   // console.log("msgs: 28", msgs);
 
   socket.on("disconnect", () => {
