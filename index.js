@@ -6,7 +6,7 @@ require("dotenv").config();
 const app = express();
 //const cors = require("cors");
 
-const port = process.env.PORT || 3500;
+const port = process.env.port || 3500;
 
 const server = http.createServer(app);
 const socketIO = require("socket.io");
@@ -19,18 +19,18 @@ const io = socketIO(server, {
 
 //app.use(cors());
 app.get("/", (req, res) => {
-  res.send("Hello Chating backend working");
+  res.send("Hello chating backend working");
 });
 
 io.on("connection", async (socket) => {
-  //console.log("What is sokect.: ", socket);
-  console.log("socket/user connected :26");
+  //console.log("Socket connected...");
+  console.log("socket/user connected");
   let payload = await messageModel.find();
   io.emit("chat", payload);
   // console.log("msgs: 28", msgs);
 
   socket.on("disconnect", () => {
-    console.log("user Disconnect.:29");
+    console.log("user Disconnect.");
   });
   socket.on("chat", async (payload) => {
     // console.log(payload);
